@@ -17,7 +17,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from gerador.ia import carregar_chave_local, provedor, ErroIA
-from gerador.checagem import checar, tem_erro, aplicar_acentos
+from gerador.checagem import checar, tem_erro, aplicar_acentos, listar_confirmacoes
 from gerador.pdf import renderizar
 from gerador.planilha import escrever_xlsx, escrever_csv
 from gerador import enviar as envio
@@ -70,6 +70,7 @@ def gerar_um(prov, item: dict) -> tuple[dict, list]:
         checagens = checar(anuncio, item)
         anuncio["_checagens"] = checagens
         anuncio["_tentativas"] = i + 1
+        anuncio["confirmacoes"] = listar_confirmacoes(anuncio)
         if not tem_erro(checagens):
             return anuncio, checagens
         erros = [c for c in checagens if c["nivel"] == "erro"]
@@ -82,6 +83,7 @@ def gerar_um(prov, item: dict) -> tuple[dict, list]:
             pend.append(msg)
     ultimo["pendencias"] = pend
     ultimo["_falhou_checagem"] = True
+    ultimo["confirmacoes"] = listar_confirmacoes(ultimo)
     return ultimo, checagens
 
 

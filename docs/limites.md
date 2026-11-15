@@ -22,13 +22,17 @@ A checagem também recusa “mais vendido”, “best seller” e equivalentes (
 
 | Campo | Valor usado | Fonte |
 |---|---|---|
-| Título (teto da checagem) | **256 caracteres** | Guias de integração no Brasil: Ideris (https://atendimento.ideris.com.br/hc/pt-br/articles/21406464506647-Boas-práticas-de-anúncios-para-a-Shopee), Anymarket e Mainô. A central do vendedor no Brasil **não publica o número** nos artigos 2731 e 20972. Um material oficial de outro país (Malásia, “Optimising your Product Listings”) cita **120**. Geramos títulos legíveis, não “no teto”, e recusamos o que passar de 256. |
+| Título (teto da checagem e da página de vendas) | **120 caracteres** | A página de vendas da Descrevi segue a copy final (“guias de integração citam até 120 caracteres”). A central do vendedor no Brasil **não publica o número** nos artigos 2731 e 20972. Guias de integração no Brasil (Ideris, Anymarket, Mainô) citam **256**. Um material oficial de outro país (Malásia, “Optimising your Product Listings”) cita **120**. Usamos 120, o teto mais curto, e recusamos o que passar disso. |
 | Descrição | **5.000 caracteres** (o menor entre as fontes) | Ideris e Anymarket: 5.000. Mainô cita 10.000. Usamos 5.000. |
 | Fórmula do nome | Nome do produto + Marca + Especificações/Tipo (a central também cita Marca + Nome + Modelo) | https://seller.shopee.com.br/edu/article/2731 e https://seller.shopee.com.br/edu/article/20972 |
 | Até 3 marcas no título | Sim | Artigo 20972 (keyword spam), central do vendedor BR |
 | Keyword spam, símbolos, hashtag | Recusados no título | Artigo 20972 |
 | Links externos, contato, loja de fora, promoção na descrição | Recusados | Artigo 76225 da Central de Ajuda BR (https://help.shopee.com.br/portal/4/article/76225) e Ideris |
 | “Best seller”, “hot item”, “sale”, “free shipping” | Evitar | Material oficial de outro país (PDF MY) e política da Descrevi; no Brasil, o artigo 2868 trata de spam de palavras-chave e de característica incorreta |
+
+## Dado que faltou
+
+Quando um fato necessário (medida, material, voltagem, garantia, o que vem na caixa etc.) não foi informado, o gerador escreve o placeholder literal `[confirmar: <o que falta>]` em vez de inventar ou omitir em silêncio. Esses itens aparecem no topo de cada anúncio, no PDF e na planilha, como “Itens para você confirmar”. Uma medida que apareça no texto gerado e não esteja nos dados enviados é recusada, a menos que esteja dentro de `[confirmar: …]`.
 
 ## O que a checagem não faz
 

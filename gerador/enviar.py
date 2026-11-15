@@ -43,7 +43,7 @@ def _anexo(path: Path) -> dict:
 
 def montar_payload(pedido: dict, arquivos: list[Path], resumo: str, cfg: dict) -> dict:
     rem = cfg.get("remetente") or {}
-    suporte = os.environ.get("SUPORTE_EMAIL") or rem.get("suporte") or "heliovcastro@gmail.com"
+    suporte = os.environ.get("SUPORTE_EMAIL") or rem.get("suporte") or ""
     site = (cfg.get("urls") or {}).get("site") or "https://heliovc.github.io/descrevi"
     endereco = rem.get("endereco") or ""
     assunto, html, texto = _html(pedido, resumo, suporte, site, endereco)

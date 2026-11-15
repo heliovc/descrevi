@@ -10,7 +10,7 @@ import unicodedata
 
 ML_TITULO = 60          # settings.max_title_length típico; conferido em categorias MLB via API pública
 ML_DESCRICAO = 50_000   # settings.max_description_length (API de categorias)
-SHOPEE_TITULO = 256     # guias de integração BR (Ideris, Anymarket, Mainô); a central BR não publica o número
+SHOPEE_TITULO = 120     # teto da página de vendas e da checagem (mais curto que os 256 citados por integradores BR; a central BR não publica o número)
 SHOPEE_DESCRICAO = 5_000  # Ideris e Anymarket; Mainô cita 10.000 — usamos o menor
 
 # Palavras que o ML oficialmente não quer no título, ou que equivalem a contato/promessa.
@@ -48,6 +48,58 @@ RX_MEDIDA = re.compile(
     r"pol(?:egadas?)?|\"|mah|gb|tb|mb|rpm|dpi|lbs?|oz|un|unid(?:ades?)?)\b",
     re.I,
 )
+
+RX_CONFIRMAR = re.compile(r"\[confirmar:\s*([^\]]+?)\]", re.I)
+
+
+def texto_sem_confirmacoes(texto: str) -> str:
+    """Remove blocos [confirmar: …] para não tratar o placeholder como fato inventado."""
+    return RX_CONFIRMAR.sub(" ", texto or "")
+
+
+def extrair_confirmacoes(*textos: str) -> list[str]:
+    vistos, out = set(), []
+    for t in textos:
+        for m in RX_CONFIRMAR.finditer(t or ""):
+            item = " ".join(m.group(1).split()).strip(" .;,:")
+            if not item:
+                continue
+            k = _norm(item)
+            if k not in vistos:
+                vistos.add(k)
+                out.append(item)
+    return out
+
+
+def _textos_gerados(anuncio: dict) -> list[str]:
+    textos = []
+    for t in anuncio.get("titulos_ml") or []:
+        textos.append((t or {}).get("texto") or "")
+    ts = anuncio.get("titulo_shopee") or {}
+    textos.append(ts.get("texto") or "")
+    desc = anuncio.get("descricao") or {}
+    textos.extend([
+        desc.get("o_que_e") or "", desc.get("texto_corrido") or "",
+        desc.get("o_que_vem") or "", desc.get("cuidados") or "",
+        " ".join(desc.get("especificacoes") or []),
+    ])
+    for par in anuncio.get("ficha_tecnica") or []:
+        if isinstance(par, dict):
+            textos.append(f"{par.get('caracteristica') or ''} {par.get('valor') or ''}")
+    for p in anuncio.get("perguntas") or []:
+        textos.append(f"{(p or {}).get('pergunta') or ''} {(p or {}).get('resposta') or ''}")
+    for f in anuncio.get("roteiro_fotos") or []:
+        textos.append(f"{(f or {}).get('o_que_mostrar') or ''} {(f or {}).get('dica') or ''}")
+    textos.append(anuncio.get("observacoes") or "")
+    for p in anuncio.get("pendencias") or []:
+        textos.append(str(p))
+    return textos
+
+
+def listar_confirmacoes(anuncio: dict) -> list[str]:
+    """Itens [confirmar: …] encontrados no texto gerado, na ordem de aparição, sem repetir."""
+    return extrair_confirmacoes(*_textos_gerados(anuncio))
+
 
 class Problema(dict):
     def __init__(self, nivel: str, campo: str, mensagem: str, fonte: str = ""):
@@ -171,7 +223,7 @@ def checar_titulo_shopee(texto: str, item: dict) -> list[Problema]:
     out: list[Problema] = []
     t = (texto or "").strip()
     fonte_spam = "https://seller.shopee.com.br/edu/article/20972/Whats-keywords-spam"
-    fonte_int = "guias de integração BR (Ideris/Anymarket/Mainô) citam 256 caracteres; a central do vendedor no Brasil não publica o teto"
+    fonte_int = "teto usado: 120 caracteres (página de vendas da Descrevi; a central do vendedor no Brasil não publica o número)"
     if not t:
         out.append(Problema("erro", "titulo_shopee", "título vazio", fonte_spam))
         return out
@@ -238,10 +290,10 @@ def checar_inventados(anuncio: dict, item: dict) -> list[Problema]:
         blocos.append(("perguntas", f"{p.get('pergunta','')} {p.get('resposta','')}"))
     vistos = set()
     for campo, txt in blocos:
-        for med in medidas(txt):
+        for med in medidas(texto_sem_confirmacoes(txt)):
             if med not in origem and med not in vistos:
                 vistos.add(med)
-                out.append(Problema("erro", campo, f"medida ou unidade “{med}” não aparece nos dados enviados — não inventamos especificação", ""))
+                out.append(Problema("erro", campo, f"medida ou unidade “{med}” não aparece nos dados enviados — não inventamos especificação (use [confirmar: {med}] se o dado faltar)", ""))
     return out
 
 

@@ -29,7 +29,7 @@ WARN = HexColor("#7a3e12")
 
 DISCLAIMER = (
     "Material gerado pela Descrevi (pacote Anúncio Pronto) a partir dos dados que você colou no formulário. "
-    "Revise antes de publicar. Não inventamos característica: se algo importante faltou, isso aparece em “O que conferir”. "
+    "Revise antes de publicar. Não inventamos característica: se algo importante faltou, isso aparece em “Itens para você confirmar”, com o marcador [confirmar: …]. "
     "A Descrevi não publica no seu lugar, não pede senha e não garante vendas nem posição na busca — isso depende de preço, estoque, reputação, frete e fotos. "
     "O link do anúncio, se você informou, entra só como referência e não foi acessado."
 )
@@ -108,6 +108,32 @@ def _tabela(linhas, colunas, larguras):
     return t
 
 
+def _email_suporte() -> str:
+    import json
+    cfg = Path(__file__).resolve().parent.parent / "config.json"
+    if cfg.exists():
+        return ((json.loads(cfg.read_text()) or {}).get("remetente") or {}).get("suporte") or ""
+    return ""
+
+
+def _confirmacoes(anuncio: dict) -> list[str]:
+    from gerador.checagem import listar_confirmacoes
+    lista = list(anuncio.get("confirmacoes") or listar_confirmacoes(anuncio))
+    # inclui pendências que ainda não estejam representadas
+    ja = set(s.lower() for s in lista)
+    for p in anuncio.get("pendencias") or []:
+        txt = str(p).strip()
+        if txt and txt.lower() not in ja and not any(txt.lower() in x.lower() or x.lower() in txt.lower() for x in lista):
+            lista.append(txt)
+            ja.add(txt.lower())
+    avisos = [c["mensagem"] for c in (anuncio.get("_checagens") or []) if c.get("nivel") == "aviso"]
+    for a in avisos:
+        if a.lower() not in ja:
+            lista.append(a)
+            ja.add(a.lower())
+    return lista
+
+
 def _bloco_produto(S, item, anuncio, idx, total):
     from gerador.checagem import montar_descricao_corrida, ML_TITULO, SHOPEE_TITULO
     flow = []
@@ -123,6 +149,13 @@ def _bloco_produto(S, item, anuncio, idx, total):
         meta.append(f"Link informado (só referência, não acessado): {item['link_referencia']}")
     if meta:
         flow.append(Paragraph(E(" · ".join(meta)), S["muted"]))
+    confs = _confirmacoes(anuncio)
+    if confs:
+        flow.append(Paragraph("Itens para você confirmar", S["h2"]))
+        flow.append(Paragraph("O gerador não inventou estes dados. Complete ou confirme antes de publicar.", S["muted"]))
+        for c in confs:
+            rotulo = c if c.lower().startswith("[confirmar:") else f"[confirmar: {c}]"
+            flow.append(Paragraph(f"• {E(rotulo)}", S["aviso"]))
     flow.append(Spacer(1, 4 * mm))
 
     if (item.get("plataforma") or "ambos") in ("ml", "ambos"):
@@ -144,10 +177,10 @@ def _bloco_produto(S, item, anuncio, idx, total):
             ], [12 * mm, 105 * mm, 22 * mm, 35 * mm]))
 
     if (item.get("plataforma") or "ambos") in ("shopee", "ambos"):
-        flow.append(Paragraph("Título para a Shopee", S["h2"]))
+        flow.append(Paragraph("Título para a Shopee (até 120 caracteres)", S["h2"]))
         ts = (anuncio.get("titulo_shopee") or {}).get("texto") or ""
         flow.append(Paragraph(E(ts), S["titulo"]))
-        flow.append(Paragraph(f"{len(ts)} caracteres (teto usado nesta checagem: {SHOPEE_TITULO}; a central do vendedor no Brasil não publica o número).", S["muted"]))
+        flow.append(Paragraph(f"{len(ts)}/{SHOPEE_TITULO} caracteres.", S["muted"]))
 
     flow.append(Paragraph("Descrição (texto puro, pronta para colar)", S["h2"]))
     desc = montar_descricao_corrida(anuncio.get("descricao") or {})
@@ -186,12 +219,6 @@ def _bloco_produto(S, item, anuncio, idx, total):
             Paragraph("#", S["muted"]), Paragraph("O que mostrar", S["muted"]), Paragraph("Dica", S["muted"]),
         ], [12 * mm, 100 * mm, 62 * mm]))
 
-    pend = list(anuncio.get("pendencias") or [])
-    avisos = [c["mensagem"] for c in (anuncio.get("_checagens") or []) if c.get("nivel") == "aviso"]
-    if pend or avisos:
-        flow.append(Paragraph("O que conferir antes de publicar", S["h2"]))
-        for p in pend + avisos:
-            flow.append(Paragraph(f"• {E(p)}", S["aviso"]))
     if anuncio.get("observacoes"):
         flow.append(Paragraph("Observações", S["h3"]))
         flow.append(Paragraph(E(anuncio["observacoes"]), S["muted"]))
@@ -221,7 +248,7 @@ def renderizar(pedido: dict, itens_gerados: list[dict], destino: Path) -> Path:
     story.append(Spacer(1, 3 * mm))
     story.append(Paragraph(
         "Limites usados nesta entrega: título do Mercado Livre com até 60 caracteres (max_title_length da categoria, conferido na API pública). "
-        "Título da Shopee checado contra 256 caracteres (guias de integração no Brasil; a central do vendedor no Brasil não publica o teto). "
+        "Título da Shopee com até 120 caracteres. "
         "Descrição da Shopee checada contra 5.000 caracteres (fonte conservadora). "
         "Regras de “estoque”, marcas de terceiro e keyword spam vêm da documentação oficial citada em nosso material interno.",
         S["muted"],
@@ -244,13 +271,15 @@ def renderizar(pedido: dict, itens_gerados: list[dict], destino: Path) -> Path:
         "4. Transfira a ficha técnica para os campos de características da plataforma.<br/>"
         "5. As perguntas e respostas servem para a descrição ou para responder compradores — não invente o que não estava no formulário.<br/>"
         "6. Siga o roteiro de fotos. A foto 1 é a da busca.<br/>"
-        "7. Se a seção “O que conferir” listar algo, complete ou corrija antes de publicar.",
+        "7. Se a seção “Itens para você confirmar” listar algo, complete ou confirme antes de publicar. O texto usa o marcador [confirmar: …] no lugar do dado que faltou.",
         S["corpo_l"],
     ))
     story.append(Spacer(1, 6 * mm))
+    suporte = _email_suporte()
     story.append(Paragraph(
         "Descrevi · FIT TECNOLOGIA E SERVICOS ADMINISTRATIVOS LTDA · CNPJ 49.408.467/0001-64<br/>"
-        "Rua Visconde de Pirajá, 414, sala 718, Ipanema, Rio de Janeiro/RJ, CEP 22410-002",
+        "Rua Visconde de Pirajá, 414, sala 718, Ipanema, Rio de Janeiro/RJ, CEP 22410-002"
+        + (f"<br/>Dúvidas: {E(suporte)}" if suporte else ""),
         S["muted"],
     ))
     doc.build(story)

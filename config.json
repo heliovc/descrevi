@@ -11,7 +11,10 @@
     "intake": "https://descrevi-intake.heliovcastro.workers.dev",
     "origem": "https://heliovc.github.io"
   },
-  "precos": { "3": 47, "10": 127 },
+  "precos": {
+    "3": 47,
+    "10": 127
+  },
   "kiwify": {
     "produto_3": "bbbbbbbb-3333-4ccc-8ddd-ffffffffffff",
     "produto_10": "bbbbbbbb-aaaa-4ccc-8ddd-ffffffffffff",
@@ -20,18 +23,18 @@
   },
   "remetente": {
     "nome": "Descrevi",
-    "email": "heliovcastro@gmail.com",
-    "reply_to": "heliovcastro@gmail.com",
-    "suporte": "heliovcastro@gmail.com",
+    "email": "contato@valorasolucoes.com",
+    "reply_to": "contato@valorasolucoes.com",
+    "suporte": "contato@valorasolucoes.com",
     "endereco": "FIT TECNOLOGIA E SERVICOS ADMINISTRATIVOS LTDA · CNPJ 49.408.467/0001-64 · Rua Visconde de Pirajá, 414, sala 718, Ipanema, Rio de Janeiro/RJ, CEP 22410-002"
   },
   "limites": {
     "ml_titulo": 60,
     "ml_descricao": 50000,
-    "shopee_titulo": 256,
+    "shopee_titulo": 120,
     "shopee_descricao": 5000,
     "titulo_gratis_por_ip": 3,
     "titulo_gratis_teto_diario": 80
   },
-  "observacao_suporte": "E-mail de suporte dedicado ainda não foi definido (não usar endereços da Valora). Enquanto isso, o contato legal é heliovcastro@gmail.com."
+  "observacao_suporte": "E-mail de suporte público (aprovado pelo dono em 15/11/2026): contato@valorasolucoes.com. Única menção permitida a esse domínio; a marca e o site correspondentes não entram no material da Descrevi. O controlador dos dados continua sendo a FIT TECNOLOGIA E SERVICOS ADMINISTRATIVOS LTDA."
 }

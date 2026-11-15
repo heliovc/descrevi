@@ -5,4 +5,6 @@ Dois produtos ilustrativos, gerados em 15/11/2026 (America/Sao_Paulo) com `gemin
 - Garrafa térmica inox (1 litro, parede dupla, tampa com rosca). O link no PDF é fictício e **não foi acessado**.
 - Organizador de gaveta em acrílico (40 × 30 × 5 cm, 6 divisórias).
 
+Onde um fato necessário não foi informado (por exemplo garantia, marca, o que vem na embalagem), o texto usa o placeholder `[confirmar: …]` e a seção “Itens para você confirmar” lista esses itens no topo de cada anúncio.
+
 Arquivos: PDF, xlsx, CSV e o JSON de auditoria (sem chave de API). O texto passou nas checagens automáticas sem erro persistente. Revise como qualquer entrega: o material não garante vendas nem posição na busca.

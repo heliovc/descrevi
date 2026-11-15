@@ -5,7 +5,7 @@ from pathlib import Path
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
-from gerador.checagem import montar_descricao_corrida, ML_TITULO, SHOPEE_TITULO
+from gerador.checagem import montar_descricao_corrida, ML_TITULO, SHOPEE_TITULO, listar_confirmacoes
 
 FOREST = "1A4A3C"
 SOFT = "E4EFE9"
@@ -42,6 +42,19 @@ def linhas_planas(itens_gerados: list[dict]) -> list[list]:
         nome = item.get("nome_produto") or f"Produto {i}"
         plat = item.get("plataforma") or "ambos"
         link = item.get("link_referencia") or ""
+        confs = list(anuncio.get("confirmacoes") or listar_confirmacoes(anuncio))
+        ja = set(s.lower() for s in confs)
+        for p in anuncio.get("pendencias") or []:
+            txt = str(p).strip()
+            if txt and txt.lower() not in ja:
+                confs.append(txt)
+                ja.add(txt.lower())
+        if confs:
+            resumo = " · ".join(c if c.lower().startswith("[confirmar:") else f"[confirmar: {c}]" for c in confs)
+            rows.append([i, nome, plat, "Itens para você confirmar", resumo, len(confs), "", "Complete ou confirme antes de publicar", link])
+            for c in confs:
+                rotulo = c if c.lower().startswith("[confirmar:") else f"[confirmar: {c}]"
+                rows.append([i, nome, plat, "Confirmar", rotulo, "", "", "", link])
         if plat in ("ml", "ambos"):
             for j, t in enumerate(anuncio.get("titulos_ml") or [], 1):
                 txt = (t.get("texto") or "").strip()
@@ -58,8 +71,6 @@ def linhas_planas(itens_gerados: list[dict]) -> list[list]:
             rows.append([i, nome, plat, f"Resposta {j}", p.get("resposta") or "", "", "", "", link])
         for f in sorted(anuncio.get("roteiro_fotos") or [], key=lambda x: x.get("ordem") or 0):
             rows.append([i, nome, plat, f"Foto {f.get('ordem')}", f.get("o_que_mostrar") or "", "", "", f.get("dica") or "", link])
-        for p in anuncio.get("pendencias") or []:
-            rows.append([i, nome, plat, "O que conferir", p, "", "", "", link])
     return rows
 
 

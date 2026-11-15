@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <title>Anúncio Pronto, da Descrevi — texto para Mercado Livre e Shopee</title>
-  <meta name="description" content="Você preenche um formulário com os dados do produto. Em até 24 horas, recebe por e-mail o anúncio pronto para colar, já conferido no limite de caracteres de cada plataforma.">
+  <meta name="description" content="Você preenche um formulário com os dados do produto. Em até 24 horas, recebe por e-mail o anúncio pronto para colar, já no limite de caracteres de cada plataforma.">
   <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
@@ -24,7 +24,7 @@
     <section class="hero">
       <div class="wrap">
         <h1>O anúncio inteiro pronto para o Mercado Livre e a Shopee, do título às fotos.</h1>
-        <p class="sub">Você preenche um formulário com os dados do produto. Em até 24 horas, recebe por e-mail tudo o que vai no anúncio, pronto para colar e já conferido no limite de caracteres de cada plataforma.</p>
+        <p class="sub">Você preenche um formulário com os dados do produto. Em até 24 horas, recebe por e-mail tudo o que vai no anúncio, pronto para colar e já no limite de caracteres de cada plataforma.</p>
         <div class="bts">
           <a class="btn" id="btn-3" href="#pacotes">3 anúncios por R$&nbsp;47</a>
           <a class="btn sec" id="btn-10" href="#pacotes">10 anúncios por R$&nbsp;127</a>
@@ -36,7 +36,7 @@
     <section id="problema">
       <div class="wrap">
         <h2>O problema</h2>
-        <p>Montar um anúncio é mais que escrever o título, e cada plataforma tem regra própria. No Mercado Livre, o título tem até 60 caracteres, e a documentação para quem publica recomenda usar produto + marca + modelo + especificações, sem repetir o que já está nas características, sem cor ou tamanho quando há variações e sem “frete grátis” ou “promoção”. Na Shopee, o nome do produto tem mais espaço do que no Mercado Livre. A central do vendedor no Brasil não publica o teto de caracteres; guias de integração brasileiros citam até 256, e um material oficial da Shopee em outro país cita 120. Em qualquer caso, a plataforma pune excesso de palavras-chave e símbolos e aceita no máximo 3 marcas no título.</p>
+        <p>Montar um anúncio é mais que escrever o título, e cada plataforma tem regra própria. No Mercado Livre, o título tem até 60 caracteres, e a documentação para quem publica recomenda usar produto + marca + modelo + especificações, sem repetir o que já está nas características, sem cor ou tamanho quando há variações e sem “frete grátis” ou “promoção”. Na Shopee, o nome do produto tem mais espaço (guias de integração citam até 120 caracteres), mas a plataforma pune excesso de palavras-chave e símbolos e aceita no máximo 3 marcas no título.</p>
       </div>
     </section>
 
@@ -113,8 +113,8 @@
         <h2>Um exemplo de título (produto ilustrativo, não é cliente)</h2>
         <div class="ex" id="exemplo-real">
           <p class="antes">❌ Antes: “OFERTA!!! Garrafa Térmica Linda Frete Grátis Promoção Preta”</p>
-          <p class="depois">✅ Depois (amostra real do gerador): “Garrafa Térmica Inox 1 Litro Aço Inoxidável” <span class="n">(43 caracteres)</span></p>
-          <p class="n">O mesmo gerador, num segundo produto ilustrativo: “Organizador De Gaveta Acrílico 40x30 Com 6 Divisórias” (53 caracteres). Os PDFs completos destas duas amostras estão no repositório, em amostra/.</p>
+          <p class="depois">✅ Depois (amostra real do gerador): “Garrafa Térmica Inox Parede Dupla 1 Litro” <span class="n">(41 caracteres)</span></p>
+          <p class="n">O mesmo gerador, num segundo produto ilustrativo: “Organizador De Gaveta Em Acrílico 40x30x5 Cm 6 Divisórias” (57 caracteres). Os PDFs completos destas duas amostras estão no repositório, em amostra/.</p>
         </div>
       </div>
     </section>
@@ -131,9 +131,9 @@
         <h3>E se eu não gostar?</h3>
         <p>Você tem 7 dias de garantia pela Kiwify.</p>
         <h3>Recebo nota fiscal?</h3>
-        <p>A nota fiscal de serviço pode ser solicitada pelo e-mail de suporte: <a href="mailto:heliovcastro@gmail.com">heliovcastro@gmail.com</a> (endereço temporário até haver uma caixa só da Descrevi).</p>
+        <p>A nota fiscal de serviço pode ser solicitada pelo e-mail de suporte: <a href="mailto:contato@valorasolucoes.com" data-suporte>contato@valorasolucoes.com</a>.</p>
         <h3>Como falo com vocês?</h3>
-        <p>Pelo e-mail <a href="mailto:heliovcastro@gmail.com">heliovcastro@gmail.com</a>.</p>
+        <p>Pelo e-mail <a href="mailto:contato@valorasolucoes.com" data-suporte>contato@valorasolucoes.com</a>.</p>
       </div>
     </section>
   </main>
@@ -161,6 +161,12 @@
       liga("btn-10", c.checkout10); liga("buy-10", c.checkout10);
       var n = document.getElementById("nota-checkout");
       if (n && c.checkout3 && c.checkout10) n.hidden = true;
+      if (c.suporte) {
+        document.querySelectorAll("[data-suporte]").forEach(function (a) {
+          a.href = "mailto:" + c.suporte;
+          a.textContent = c.suporte;
+        });
+      }
     })();
   </script>
 </body>

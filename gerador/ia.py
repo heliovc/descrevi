@@ -41,16 +41,16 @@ PROMPT_SISTEMA = """Você escreve o texto de anúncios para vendedores do Mercad
 Você NÃO publica o anúncio. Você só entrega texto e um roteiro de fotos, a partir dos dados que o vendedor enviou.
 
 Regras obrigatórias:
-- Use SOMENTE os dados fornecidos. Não invente marca, modelo, medida, material, voltagem, conteúdo da caixa, garantia, origem ou qualquer outra característica. Se faltar um dado, deixe o campo curto ou vazio e registre em "pendencias".
+- Use SOMENTE os dados fornecidos. Não invente marca, modelo, medida, material, voltagem, conteúdo da caixa, garantia, origem ou qualquer outra característica. Se um fato necessário não foi informado, NÃO invente e NÃO omita em silêncio: escreva o placeholder literal no formato [confirmar: <o que falta>] (exemplos: [confirmar: voltagem], [confirmar: o que vem na embalagem], [confirmar: garantia], [confirmar: material]). Use o placeholder na descrição, na ficha técnica e nas respostas. Não coloque [confirmar: …] nos títulos — o título usa só o que foi informado. Liste os mesmos itens em "pendencias".
 - Não faça promessa de venda, de posição na busca, de “mais vendido”, “nº 1”, “líder de vendas” ou equivalente.
 - Não inclua telefone, e-mail, WhatsApp, site, rede social ou qualquer link.
 - Não use a palavra "estoque" (em título ou descrição). Não escreva “estoque limitado”.
 - Não use HTML. Descrição em texto puro, com quebras de linha.
 - Títulos do Mercado Livre (exatamente 3 opções), cada um com NO MÁXIMO 60 caracteres (conte espaços). Estrutura: Produto + Marca + modelo + especificações que identifiquem o produto. Separe palavras com espaço; não use sinais de pontuação, símbolos nem emoji. Mantenha a acentuação normal do português (é, ç, ã, ó…): acento é letra, não símbolo, e conta como 1 caractere. Não retire acentos. Não coloque no título: frete, parcelamento, devolução, promoção, oferta, desconto, “novo”, “usado”, “recondicionado”, cor ou tamanho quando isso for variação. Marca de terceiro só com “para” ou “compatível com”. Evite caixa alta no título inteiro.
-- Título da Shopee: mais completo, fácil de ler. Fórmula: Nome do produto + Marca + especificações/tipo (a central também cita Marca + Nome + Modelo). No máximo 3 marcas no título. Sem keyword spam (não repita a mesma palavra, não faça lista de termos soltos, sem símbolos, hashtag ou emoji). Sem “hot item”, “best seller”, “sale”, “frete grátis”. Pode ter até 256 caracteres, mas seja legível — não encha de palavras.
-- Descrição organizada: o que é e para quem serve; especificações em lista; o que vem na embalagem (só se informado); cuidados (só se informado). Teto prático da Shopee que usamos: 5.000 caracteres.
-- Ficha técnica: pares característica/valor só com o que foi informado.
-- 5 perguntas e respostas que um comprador faria, respondidas só com os dados enviados. Se o dado não foi informado, diga isso com clareza na resposta (não invente).
+- Título da Shopee: mais completo, fácil de ler, com NO MÁXIMO 120 caracteres (conte espaços). Fórmula: Nome do produto + Marca + especificações/tipo (a central também cita Marca + Nome + Modelo). No máximo 3 marcas no título. Sem keyword spam (não repita a mesma palavra, não faça lista de termos soltos, sem símbolos, hashtag ou emoji). Sem “hot item”, “best seller”, “sale”, “frete grátis”. Seja legível — não encha de palavras.
+- Descrição organizada: o que é e para quem serve; especificações em lista; o que vem na embalagem (se não foi informado, use [confirmar: o que vem na embalagem]); cuidados (se não foram informados, use [confirmar: cuidados] só quando fizer sentido pedir). Teto prático da Shopee que usamos: 5.000 caracteres.
+- Ficha técnica: pares característica/valor com o que foi informado; se um campo usual faltar (marca, garantia, voltagem, medidas), o valor é [confirmar: …].
+- 5 perguntas e respostas que um comprador faria. Se o dado não foi informado, a resposta contém o placeholder [confirmar: …], sem inventar.
 - Roteiro de 8 fotos, em ordem, dizendo o que cada uma precisa mostrar (o vendedor ou o fotógrafo tira as fotos; você não gera imagem).
 - Se o produto for genérico / sem marca, diga isso na ficha. Não atribua marca de terceiro ao produto; use “para” ou “compatível com” só quando o vendedor pediu.
 - Não mencione Mercado Livre, Shopee, Descrevi ou concorrentes no texto que o vendedor vai colar no anúncio (títulos, descrição, ficha, Q&A). O roteiro de fotos pode ser neutro.
@@ -96,7 +96,7 @@ class ProvedorMock:
         if t3 in (t1, t2):
             t3 = corta(f"{nome} {diffs} {specs}", 60)
 
-        shopee = corta(" ".join(p for p in (nome, diffs, specs, f"Categoria {cat}" if cat else "") if p), 180)
+        shopee = corta(" ".join(p for p in (nome, diffs, specs) if p), 120)
         linhas_spec = [ln.strip(" -•") for ln in specs.splitlines() if ln.strip()] or [specs] if specs else []
         pend = []
         if not specs:
@@ -109,7 +109,9 @@ class ProvedorMock:
         ]
         if linhas_spec:
             desc_partes.append("Especificações:\n" + "\n".join(f"• {s}" for s in linhas_spec))
-        desc_partes.append("O que vem na embalagem: não foi informado no formulário. Confirme antes de publicar.")
+        tem_embalagem = any(re.search(r"vem na (caixa|embalagem)|conte[uú]do da (caixa|embalagem)", s, re.I) for s in linhas_spec)
+        o_que_vem = next((s for s in linhas_spec if re.search(r"vem na (caixa|embalagem)|conte[uú]do", s, re.I)), "") or "[confirmar: o que vem na embalagem]"
+        desc_partes.append("O que vem na embalagem:\n" + o_que_vem)
         texto = "\n\n".join(desc_partes)
         ficha = []
         if cat:
@@ -120,15 +122,19 @@ class ProvedorMock:
                 ficha.append({"caracteristica": a.strip()[:80], "valor": b.strip()[:200]})
             else:
                 ficha.append({"caracteristica": "Característica", "valor": s[:200]})
+        if not any(re.search(r"garantia", (par.get("caracteristica") or "") + (par.get("valor") or ""), re.I) for par in ficha):
+            ficha.append({"caracteristica": "Garantia", "valor": "[confirmar: garantia]"})
+        med = next((s for s in linhas_spec if re.search(r"\d", s)), "")
+        mat = next((s for s in linhas_spec if re.search(r"material|inox|acr[ií]lico|pl[aá]stico|algod[aã]o|madeira|vidro|silicone", s, re.I)), "")
         perguntas = [
             {"pergunta": "Quais são as medidas ou a capacidade?",
-             "resposta": next((s for s in linhas_spec if re.search(r"\d", s)), "Isso não foi informado no formulário. Complete antes de publicar.")},
+             "resposta": med or "[confirmar: medidas ou capacidade]"},
             {"pergunta": "De que material é feito?",
-             "resposta": next((s for s in linhas_spec if re.search(r"material|inox|acr[ií]lico|pl[aá]stico|algod[aã]o|madeira|vidro|silicone", s, re.I)), "O material não foi informado no formulário.")},
+             "resposta": mat or "[confirmar: material]"},
             {"pergunta": "O que vem na caixa?",
-             "resposta": "O conteúdo da embalagem não foi informado no formulário. Inclua essa informação na descrição antes de publicar."},
+             "resposta": o_que_vem},
             {"pergunta": "Tem garantia?",
-             "resposta": "A garantia não foi informada no formulário. Só declare a garantia que você realmente oferece."},
+             "resposta": "[confirmar: garantia]"},
             {"pergunta": "Quais são as cores ou tamanhos disponíveis?",
              "resposta": "Se houver variações de cor ou tamanho, cadastre-as no campo de variações da plataforma, não no título."},
         ]
@@ -152,14 +158,14 @@ class ProvedorMock:
             "descricao": {
                 "o_que_e": desc_partes[0],
                 "especificacoes": linhas_spec,
-                "o_que_vem": "",
+                "o_que_vem": o_que_vem,
                 "cuidados": "",
                 "texto_corrido": texto,
             },
             "ficha_tecnica": ficha,
             "perguntas": perguntas,
             "roteiro_fotos": roteiro,
-            "pendencias": pend + ["Conteúdo da embalagem não informado.", "Garantia não informada."],
+            "pendencias": pend + (["o que vem na embalagem"] if not tem_embalagem else []) + ["garantia"],
             "observacoes": "Gerado no modo de teste (sem IA). Revise antes de publicar. Não há garantia de vendas nem de posição na busca.",
         }
 

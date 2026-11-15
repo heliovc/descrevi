@@ -36,7 +36,7 @@ def schema_anuncio() -> dict:
                 "properties": {
                     "o_que_e": {"type": "STRING", "description": "Uma ou duas frases: o que é e para quem serve. Só com dados informados."},
                     "especificacoes": {"type": "ARRAY", "items": {"type": "STRING"}, "description": "Lista de especificações informadas pelo vendedor."},
-                    "o_que_vem": {"type": "STRING", "description": "O que vem na embalagem, se informado; senão deixe vazio e registre em pendencias."},
+                    "o_que_vem": {"type": "STRING", "description": "O que vem na embalagem, se informado; senão use o placeholder [confirmar: o que vem na embalagem]."},
                     "cuidados": {"type": "STRING", "description": "Cuidados ou modo de uso, só se informado."},
                     "texto_corrido": {"type": "STRING", "description": "Descrição completa em texto puro, pronta para colar, com quebras de linha."},
                 },
@@ -55,7 +55,7 @@ def schema_anuncio() -> dict:
             },
             "perguntas": {
                 "type": "ARRAY", "minItems": 5, "maxItems": 5,
-                "description": "5 perguntas frequentes e respostas baseadas só nos dados enviados. Se faltar dado, a resposta deve dizer isso com clareza.",
+                "description": "5 perguntas frequentes e respostas baseadas só nos dados enviados. Se faltar dado, a resposta usa o placeholder [confirmar: <o que falta>].",
                 "items": {
                     "type": "OBJECT",
                     "required": ["pergunta", "resposta"],
@@ -80,7 +80,7 @@ def schema_anuncio() -> dict:
             },
             "pendencias": {
                 "type": "ARRAY",
-                "description": "Informações que faltaram no formulário e que o vendedor deveria conferir ou completar antes de publicar.",
+                "description": "Lista curta do que faltou (os mesmos itens escritos como [confirmar: …] no texto).",
                 "items": {"type": "STRING"},
             },
             "observacoes": {"type": "STRING", "description": "Notas curtas para o vendedor (sem promessa de venda ou ranking)."},
