@@ -1,0 +1,30 @@
+{
+  "pedido": {
+    "id": "amostra-descrevi",
+    "email": "amostra@example.com",
+    "nome": "Amostra",
+    "pacote": "3",
+    "quantidade": 2,
+    "status": "recebido"
+  },
+  "itens": [
+    {
+      "indice": 1,
+      "nome_produto": "Garrafa térmica inox",
+      "categoria": "Utilidades domésticas",
+      "especificacoes": "Capacidade: 1 litro.\nMaterial: aço inoxidável.\nParede dupla.\nTampa com rosca.\nNão vai à boca do fogão.\nA cor deve ser cadastrada como variação, não no título.",
+      "diferenciais": "Parede dupla e tampa com rosca",
+      "plataforma": "ambos",
+      "link_referencia": "https://exemplo.invalid/anuncio-garrafa-so-referencia"
+    },
+    {
+      "indice": 2,
+      "nome_produto": "Organizador de gaveta em acrílico",
+      "categoria": "Organização e armazenamento",
+      "especificacoes": "Medidas: 40 × 30 × 5 cm.\nMaterial: acrílico transparente de 3 mm.\nVem 1 organizador com 6 divisórias fixas.\nLimpeza com pano úmido e sabão neutro; não usar álcool.",
+      "diferenciais": "Divisórias fixas e acrílico de 3 mm",
+      "plataforma": "ambos",
+      "link_referencia": ""
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="robots" content="noindex">
+  <title>Formulário do Anúncio Pronto · Descrevi</title>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="marca" href="index.html">Descrevi<small>Anúncio Pronto</small></a>
+    </div>
+  </header>
+  <main class="hero">
+    <div class="wrap">
+      <h1>Cole os dados de cada produto</h1>
+      <p class="sub" id="resumo">Carregando o seu pedido…</p>
+      <p class="nota">O que vale é o que você cola abaixo. O link do anúncio é opcional e <strong>não é acessado</strong> — serve só como referência no material entregue.</p>
+      <div id="msg" class="erro" hidden></div>
+      <form id="form" hidden>
+        <div id="itens"></div>
+        <div class="campo">
+          <label><input type="checkbox" id="consentimento" required> Concordo com o uso destes dados para montar o material do Anúncio Pronto, conforme a <a href="privacidade.html">política de privacidade</a>. Os dados são apagados em 30 dias.</label>
+        </div>
+        <div class="bts">
+          <button class="btn" type="submit" id="enviar">Enviar</button>
+        </div>
+        <p class="nota">Você pode enviar todos de uma vez ou ir salvando. O material só é montado quando todos os produtos do pacote estiverem preenchidos.</p>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap">
+      <p>Descrevi · <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></p>
+    </div>
+  </footer>
+  <script src="js/config.js"></script>
+  <script src="js/formulario.js"></script>
+</body>
+</html>

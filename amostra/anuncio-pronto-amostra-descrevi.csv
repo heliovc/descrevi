@@ -1,0 +1,79 @@
+#,Produto,Plataforma,Tipo,Texto,Caracteres,Limite,Nota,Link de referência (não acessado)
+1,Garrafa térmica inox,Mercado Livre,Título opção 1,Garrafa Térmica Inox 1 Litro Aço Inoxidável,43,60,Capacidade e material principal,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,Mercado Livre,Título opção 2,Garrafa Térmica 1 Litro Parede Dupla Tampa Com Rosca,52,60,Diferenciais de isolamento e tampa,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,Mercado Livre,Título opção 3,Garrafa Térmica Aço Inoxidável 1 Litro Parede Dupla,51,60,Material e estrutura de parede dupla,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,Shopee,Título,Garrafa Térmica Inox 1 Litro Aço Inoxidável Parede Dupla Tampa com Rosca,72,256,Nome do produto completo com capacidade e diferenciais,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Descrição,"Garrafa térmica de aço inoxidável com capacidade de 1 litro, desenvolvida com parede dupla para conservar a temperatura e tampa com rosca.
+
+Especificações:
+- Capacidade: 1 litro
+- Material: aço inoxidável
+- Parede dupla
+- Tampa com rosca
+- Não vai à boca do fogão
+
+Cuidados:
+- Não vai à boca do fogão.",301,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Ficha · Capacidade,1 litro,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Ficha · Material,Aço inoxidável,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Ficha · Parede dupla,Sim,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Ficha · Tampa,Com rosca,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Pergunta 1,Qual e a capacidade da garrafa?,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Resposta 1,A capacidade informada e de 1 litro.,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Pergunta 2,Qual e o material de fabricacao?,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Resposta 2,O material informado e aco inoxidavel.,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Pergunta 3,A garrafa pode ir ao fogo?,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Resposta 3,"Nao, o produto nao vai a boca do fogao.",,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Pergunta 4,Como e o sistema de fechamento?,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Resposta 4,A garrafa possui tampa com rosca.,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Pergunta 5,Quais sao as cores disponiveis?,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Resposta 5,"A cor deve ser cadastrada como variacao, mas nao foram informadas as cores especificas nos dados enviados.",,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Foto 1,Foto principal da garrafa inteira em fundo branco.,,,Iluminacao uniforme para destacar o brilho do aco inoxidavel.,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Foto 2,Foto mostrando a garrafa de angulo lateral.,,,Destacar o formato e o corpo de aco inoxidavel.,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Foto 3,Close na tampa com rosca.,,,Mostrar o detalhe do fechamento da tampa.,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Foto 4,Foto destacando a abertura da garrafa sem a tampa.,,,Mostrar o bocal e o interior da parede dupla.,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Foto 5,Foto de uso indicando a capacidade de 1 litro de forma visual se possivel.,,,Manter o foco exclusivo no produto.,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Foto 6,Foto detalhando a base da garrafa.,,,Garantir nitidez na parte inferior.,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Foto 7,Foto da garrafa em cenario neutro de uso cotidiano.,,,Ambiente limpo que valorize o utilitario.,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,Foto 8,Foto mostrando todos os itens que compoem o anuncio reunidos.,,,"Conforme dados informados, apenas a garrafa.",https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,O que conferir,O que vem na embalagem nao foi informado.,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,O que conferir,As cores disponiveis para cadastro de variacao nao foram informadas.,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+1,Garrafa térmica inox,ambos,O que conferir,A marca e o modelo do produto nao foram informados.,,,,https://exemplo.invalid/anuncio-garrafa-so-referencia
+2,Organizador de gaveta em acrílico,Mercado Livre,Título opção 1,Organizador De Gaveta Acrílico 40x30 Com 6 Divisórias,53,60,Medidas e divisórias,
+2,Organizador de gaveta em acrílico,Mercado Livre,Título opção 2,Organizador De Gaveta Em Acrílico Transparente 3mm,50,60,Material e espessura,
+2,Organizador de gaveta em acrílico,Mercado Livre,Título opção 3,Organizador De Gaveta Acrílico Divisórias Fixas,47,60,Diferencial de divisórias fixas,
+2,Organizador de gaveta em acrílico,Shopee,Título,Organizador de gaveta em acrílico transparente 40x30x5 cm com 6 divisórias fixas,80,256,Nome completo com todas as especificações principais,
+2,Organizador de gaveta em acrílico,ambos,Descrição,"Organizador de gaveta em acrílico para auxiliar na organização e armazenamento de objetos.
+
+Especificações:
+- Medidas: 40 x 30 x 5 cm
+- Material: acrílico transparente de 3 mm
+- 6 divisórias fixas
+
+O que vem na embalagem:
+Vem 1 organizador com 6 divisórias fixas.
+
+Cuidados:
+Limpeza com pano úmido e sabão neutro; não usar álcool.",330,,,
+2,Organizador de gaveta em acrílico,ambos,Ficha · Material,Acrílico transparente,,,,
+2,Organizador de gaveta em acrílico,ambos,Ficha · Espessura,3 mm,,,,
+2,Organizador de gaveta em acrílico,ambos,Ficha · Medidas,40 x 30 x 5 cm,,,,
+2,Organizador de gaveta em acrílico,ambos,Ficha · Quantidade de divisórias,6,,,,
+2,Organizador de gaveta em acrílico,ambos,Pergunta 1,Qual é o material do organizador?,,,,
+2,Organizador de gaveta em acrílico,ambos,Resposta 1,O organizador é feito de acrílico transparente de 3 mm.,,,,
+2,Organizador de gaveta em acrílico,ambos,Pergunta 2,Quais são as medidas do produto?,,,,
+2,Organizador de gaveta em acrílico,ambos,Resposta 2,As medidas são 40 x 30 x 5 cm.,,,,
+2,Organizador de gaveta em acrílico,ambos,Pergunta 3,As divisórias são removíveis?,,,,
+2,Organizador de gaveta em acrílico,ambos,Resposta 3,"Não, o organizador possui 6 divisórias fixas.",,,,
+2,Organizador de gaveta em acrílico,ambos,Pergunta 4,O que vem na embalagem?,,,,
+2,Organizador de gaveta em acrílico,ambos,Resposta 4,Vem 1 organizador com 6 divisórias fixas.,,,,
+2,Organizador de gaveta em acrílico,ambos,Pergunta 5,Como devo fazer a limpeza?,,,,
+2,Organizador de gaveta em acrílico,ambos,Resposta 5,A limpeza deve ser feita com pano úmido e sabão neutro. Não use álcool.,,,,
+2,Organizador de gaveta em acrílico,ambos,Foto 1,Foto principal do organizador em acrílico de frente com fundo branco.,,,Iluminação uniforme para destacar a transparência.,
+2,Organizador de gaveta em acrílico,ambos,Foto 2,Foto de ângulo superior mostrando as 6 divisórias fixas.,,,Demonstrar a divisão interna.,
+2,Organizador de gaveta em acrílico,ambos,Foto 3,Foto lateral evidenciando a espessura de 3 mm do acrílico.,,,Focar na borda do material.,
+2,Organizador de gaveta em acrílico,ambos,Foto 4,Foto demonstrando o produto inserido dentro de uma gaveta.,,,Mostrar a aplicação prática.,
+2,Organizador de gaveta em acrílico,ambos,Foto 5,Foto com objetos organizados dentro das divisórias.,,,Ilustrar a função de armazenamento.,
+2,Organizador de gaveta em acrílico,ambos,Foto 6,Foto destacando o detalhe do acabamento do material transparente.,,,Close no acrílico limpo.,
+2,Organizador de gaveta em acrílico,ambos,Foto 7,Foto ao lado de uma régua ou trena indicando as medidas de 40 x 30 x 5 cm.,,,Garantir clareza nas dimensões.,
+2,Organizador de gaveta em acrílico,ambos,Foto 8,Foto do único item incluso na embalagem.,,,Mostrar o produto isolado.,

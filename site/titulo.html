@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>Título grátis para o Mercado Livre · Descrevi</title>
+  <meta name="description" content="Gere 1 título de anúncio para o Mercado Livre, com até 60 caracteres, a partir dos dados que você colar. Sem cadastro. Até 3 por dia.">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="marca" href="index.html">Descrevi<small>Anúncio Pronto</small></a>
+      <nav><a href="index.html#pacotes">Pacotes</a></nav>
+    </div>
+  </header>
+  <main class="hero">
+    <div class="wrap">
+      <h1>Um título grátis para o Mercado Livre</h1>
+      <p class="sub">Cole os dados do produto. Devolvemos 1 título com até 60 caracteres, no formato produto + marca + modelo + especificações. Até 3 gerações por dia, sem cadastro. Isso não garante vendas nem posição na busca.</p>
+      <form id="form">
+        <div class="campo">
+          <label for="nome">Nome do produto</label>
+          <input type="text" id="nome" required maxlength="200" placeholder="Ex.: Garrafa térmica">
+        </div>
+        <div class="campo">
+          <label for="cat">Categoria (opcional)</label>
+          <input type="text" id="cat" maxlength="120" placeholder="Ex.: Utilidades domésticas">
+        </div>
+        <div class="campo">
+          <label for="esp">Características</label>
+          <p class="ajuda">Medidas, material, capacidade, modelo. Só o que for verdade. Não inventamos o que faltar.</p>
+          <textarea id="esp" required maxlength="1000" placeholder="Ex.: inox, 1 litro, parede dupla, tampa com rosca"></textarea>
+        </div>
+        <div class="campo">
+          <label for="dif">Diferenciais (opcional)</label>
+          <textarea id="dif" maxlength="500"></textarea>
+        </div>
+        <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
+        <div class="bts">
+          <button class="btn" type="submit" id="enviar">Gerar título</button>
+        </div>
+      </form>
+      <div id="msg" hidden></div>
+      <div id="saida" hidden>
+        <p class="titulo-saida" id="titulo"></p>
+        <p class="contador" id="cont"></p>
+        <p class="nota" id="aviso"></p>
+        <p>Quer o anúncio completo (descrição, ficha, perguntas e roteiro de 8 fotos)?</p>
+        <p><a class="btn" href="index.html#pacotes">Ver o pacote Anúncio Pronto</a></p>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap">
+      <p>Descrevi · <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></p>
+      <p>Não somos afiliados ao Mercado Livre nem à Shopee.</p>
+    </div>
+  </footer>
+  <script src="js/config.js"></script>
+  <script src="js/titulo.js"></script>
+</body>
+</html>

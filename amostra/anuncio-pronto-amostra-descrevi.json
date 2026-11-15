@@ -1,0 +1,290 @@
+{
+  "pedido": {
+    "id": "amostra-descrevi",
+    "email": "amostra@example.com",
+    "nome": "Amostra",
+    "pacote": "3",
+    "quantidade": 2,
+    "status": "recebido"
+  },
+  "provedor": "gemini",
+  "itens": [
+    {
+      "item": {
+        "nome_produto": "Garrafa térmica inox",
+        "categoria": "Utilidades domésticas",
+        "especificacoes": "Capacidade: 1 litro.\nMaterial: aço inoxidável.\nParede dupla.\nTampa com rosca.\nNão vai à boca do fogão.\nA cor deve ser cadastrada como variação, não no título.",
+        "diferenciais": "Parede dupla e tampa com rosca",
+        "plataforma": "ambos",
+        "marca": null,
+        "link_referencia": "https://exemplo.invalid/anuncio-garrafa-so-referencia",
+        "indice": 1
+      },
+      "anuncio": {
+        "titulos_ml": [
+          {
+            "texto": "Garrafa Térmica Inox 1 Litro Aço Inoxidável",
+            "enfoque": "Capacidade e material principal"
+          },
+          {
+            "texto": "Garrafa Térmica 1 Litro Parede Dupla Tampa Com Rosca",
+            "enfoque": "Diferenciais de isolamento e tampa"
+          },
+          {
+            "texto": "Garrafa Térmica Aço Inoxidável 1 Litro Parede Dupla",
+            "enfoque": "Material e estrutura de parede dupla"
+          }
+        ],
+        "titulo_shopee": {
+          "texto": "Garrafa Térmica Inox 1 Litro Aço Inoxidável Parede Dupla Tampa com Rosca",
+          "enfoque": "Nome do produto completo com capacidade e diferenciais"
+        },
+        "descricao": {
+          "o_que_e": "Garrafa térmica de aço inoxidável com capacidade de 1 litro, desenvolvida com parede dupla para conservar a temperatura e tampa com rosca.",
+          "especificacoes": [
+            "Capacidade: 1 litro",
+            "Material: aço inoxidável",
+            "Parede dupla",
+            "Tampa com rosca",
+            "Não vai à boca do fogão"
+          ],
+          "o_que_vem": "",
+          "cuidados": "Não vai à boca do fogão.",
+          "texto_corrido": "Garrafa térmica de aço inoxidável com capacidade de 1 litro, desenvolvida com parede dupla para conservar a temperatura e tampa com rosca.\n\nEspecificações:\n- Capacidade: 1 litro\n- Material: aço inoxidável\n- Parede dupla\n- Tampa com rosca\n- Não vai à boca do fogão\n\nCuidados:\n- Não vai à boca do fogão."
+        },
+        "ficha_tecnica": [
+          {
+            "caracteristica": "Capacidade",
+            "valor": "1 litro"
+          },
+          {
+            "caracteristica": "Material",
+            "valor": "Aço inoxidável"
+          },
+          {
+            "caracteristica": "Parede dupla",
+            "valor": "Sim"
+          },
+          {
+            "caracteristica": "Tampa",
+            "valor": "Com rosca"
+          }
+        ],
+        "perguntas": [
+          {
+            "pergunta": "Qual e a capacidade da garrafa?",
+            "resposta": "A capacidade informada e de 1 litro."
+          },
+          {
+            "pergunta": "Qual e o material de fabricacao?",
+            "resposta": "O material informado e aco inoxidavel."
+          },
+          {
+            "pergunta": "A garrafa pode ir ao fogo?",
+            "resposta": "Nao, o produto nao vai a boca do fogao."
+          },
+          {
+            "pergunta": "Como e o sistema de fechamento?",
+            "resposta": "A garrafa possui tampa com rosca."
+          },
+          {
+            "pergunta": "Quais sao as cores disponiveis?",
+            "resposta": "A cor deve ser cadastrada como variacao, mas nao foram informadas as cores especificas nos dados enviados."
+          }
+        ],
+        "roteiro_fotos": [
+          {
+            "ordem": 1,
+            "o_que_mostrar": "Foto principal da garrafa inteira em fundo branco.",
+            "dica": "Iluminacao uniforme para destacar o brilho do aco inoxidavel."
+          },
+          {
+            "ordem": 2,
+            "o_que_mostrar": "Foto mostrando a garrafa de angulo lateral.",
+            "dica": "Destacar o formato e o corpo de aco inoxidavel."
+          },
+          {
+            "ordem": 3,
+            "o_que_mostrar": "Close na tampa com rosca.",
+            "dica": "Mostrar o detalhe do fechamento da tampa."
+          },
+          {
+            "ordem": 4,
+            "o_que_mostrar": "Foto destacando a abertura da garrafa sem a tampa.",
+            "dica": "Mostrar o bocal e o interior da parede dupla."
+          },
+          {
+            "ordem": 5,
+            "o_que_mostrar": "Foto de uso indicando a capacidade de 1 litro de forma visual se possivel.",
+            "dica": "Manter o foco exclusivo no produto."
+          },
+          {
+            "ordem": 6,
+            "o_que_mostrar": "Foto detalhando a base da garrafa.",
+            "dica": "Garantir nitidez na parte inferior."
+          },
+          {
+            "ordem": 7,
+            "o_que_mostrar": "Foto da garrafa em cenario neutro de uso cotidiano.",
+            "dica": "Ambiente limpo que valorize o utilitario."
+          },
+          {
+            "ordem": 8,
+            "o_que_mostrar": "Foto mostrando todos os itens que compoem o anuncio reunidos.",
+            "dica": "Conforme dados informados, apenas a garrafa."
+          }
+        ],
+        "pendencias": [
+          "O que vem na embalagem nao foi informado.",
+          "As cores disponiveis para cadastro de variacao nao foram informadas.",
+          "A marca e o modelo do produto nao foram informados."
+        ],
+        "observacoes": "Como nao foram informadas marca ou modelo, o anuncio foi gerado como produto generico. Lembre-se de cadastrar as cores nas variacoes conforme instrucao.",
+        "_modelo": "gemini-3.5-flash-lite",
+        "_checagens": [],
+        "_tentativas": 1
+      },
+      "checagens": [],
+      "provedor": "gemini",
+      "modelo": "gemini-3.5-flash-lite"
+    },
+    {
+      "item": {
+        "nome_produto": "Organizador de gaveta em acrílico",
+        "categoria": "Organização e armazenamento",
+        "especificacoes": "Medidas: 40 × 30 × 5 cm.\nMaterial: acrílico transparente de 3 mm.\nVem 1 organizador com 6 divisórias fixas.\nLimpeza com pano úmido e sabão neutro; não usar álcool.",
+        "diferenciais": "Divisórias fixas e acrílico de 3 mm",
+        "plataforma": "ambos",
+        "marca": null,
+        "link_referencia": null,
+        "indice": 2
+      },
+      "anuncio": {
+        "titulos_ml": [
+          {
+            "texto": "Organizador De Gaveta Acrílico 40x30 Com 6 Divisórias",
+            "enfoque": "Medidas e divisórias"
+          },
+          {
+            "texto": "Organizador De Gaveta Em Acrílico Transparente 3mm",
+            "enfoque": "Material e espessura"
+          },
+          {
+            "texto": "Organizador De Gaveta Acrílico Divisórias Fixas",
+            "enfoque": "Diferencial de divisórias fixas"
+          }
+        ],
+        "titulo_shopee": {
+          "texto": "Organizador de gaveta em acrílico transparente 40x30x5 cm com 6 divisórias fixas",
+          "enfoque": "Nome completo com todas as especificações principais"
+        },
+        "descricao": {
+          "o_que_e": "Organizador de gaveta em acrílico para auxiliar na organização e armazenamento de objetos.",
+          "especificacoes": [
+            "Medidas: 40 x 30 x 5 cm",
+            "Material: acrílico transparente de 3 mm",
+            "6 divisórias fixas"
+          ],
+          "o_que_vem": "Vem 1 organizador com 6 divisórias fixas.",
+          "cuidados": "Limpeza com pano úmido e sabão neutro; não usar álcool.",
+          "texto_corrido": "Organizador de gaveta em acrílico para auxiliar na organização e armazenamento de objetos.\n\nEspecificações:\n- Medidas: 40 x 30 x 5 cm\n- Material: acrílico transparente de 3 mm\n- 6 divisórias fixas\n\nO que vem na embalagem:\nVem 1 organizador com 6 divisórias fixas.\n\nCuidados:\nLimpeza com pano úmido e sabão neutro; não usar álcool."
+        },
+        "ficha_tecnica": [
+          {
+            "caracteristica": "Material",
+            "valor": "Acrílico transparente"
+          },
+          {
+            "caracteristica": "Espessura",
+            "valor": "3 mm"
+          },
+          {
+            "caracteristica": "Medidas",
+            "valor": "40 x 30 x 5 cm"
+          },
+          {
+            "caracteristica": "Quantidade de divisórias",
+            "valor": "6"
+          }
+        ],
+        "perguntas": [
+          {
+            "pergunta": "Qual é o material do organizador?",
+            "resposta": "O organizador é feito de acrílico transparente de 3 mm."
+          },
+          {
+            "pergunta": "Quais são as medidas do produto?",
+            "resposta": "As medidas são 40 x 30 x 5 cm."
+          },
+          {
+            "pergunta": "As divisórias são removíveis?",
+            "resposta": "Não, o organizador possui 6 divisórias fixas."
+          },
+          {
+            "pergunta": "O que vem na embalagem?",
+            "resposta": "Vem 1 organizador com 6 divisórias fixas."
+          },
+          {
+            "pergunta": "Como devo fazer a limpeza?",
+            "resposta": "A limpeza deve ser feita com pano úmido e sabão neutro. Não use álcool."
+          }
+        ],
+        "roteiro_fotos": [
+          {
+            "ordem": 1,
+            "o_que_mostrar": "Foto principal do organizador em acrílico de frente com fundo branco.",
+            "dica": "Iluminação uniforme para destacar a transparência."
+          },
+          {
+            "ordem": 2,
+            "o_que_mostrar": "Foto de ângulo superior mostrando as 6 divisórias fixas.",
+            "dica": "Demonstrar a divisão interna."
+          },
+          {
+            "ordem": 3,
+            "o_que_mostrar": "Foto lateral evidenciando a espessura de 3 mm do acrílico.",
+            "dica": "Focar na borda do material."
+          },
+          {
+            "ordem": 4,
+            "o_que_mostrar": "Foto demonstrando o produto inserido dentro de uma gaveta.",
+            "dica": "Mostrar a aplicação prática."
+          },
+          {
+            "ordem": 5,
+            "o_que_mostrar": "Foto com objetos organizados dentro das divisórias.",
+            "dica": "Ilustrar a função de armazenamento."
+          },
+          {
+            "ordem": 6,
+            "o_que_mostrar": "Foto destacando o detalhe do acabamento do material transparente.",
+            "dica": "Close no acrílico limpo."
+          },
+          {
+            "ordem": 7,
+            "o_que_mostrar": "Foto ao lado de uma régua ou trena indicando as medidas de 40 x 30 x 5 cm.",
+            "dica": "Garantir clareza nas dimensões."
+          },
+          {
+            "ordem": 8,
+            "o_que_mostrar": "Foto do único item incluso na embalagem.",
+            "dica": "Mostrar o produto isolado."
+          }
+        ],
+        "pendencias": [],
+        "observacoes": "Revise se todas as medidas e características atendem integralmente ao produto físico antes de publicar.",
+        "_modelo": "gemini-3.5-flash-lite",
+        "_checagens": [],
+        "_tentativas": 2
+      },
+      "checagens": [],
+      "provedor": "gemini",
+      "modelo": "gemini-3.5-flash-lite"
+    }
+  ],
+  "arquivos": [
+    "/tmp/descrevi-amostra2/anuncio-pronto-amostra-descrevi.pdf",
+    "/tmp/descrevi-amostra2/anuncio-pronto-amostra-descrevi.xlsx",
+    "/tmp/descrevi-amostra2/anuncio-pronto-amostra-descrevi.csv"
+  ]
+}

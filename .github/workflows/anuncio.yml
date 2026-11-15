@@ -1,0 +1,59 @@
+# Gera e envia o Anúncio Pronto depois que o comprador preenche o formulário.
+# Disparado pelo Worker (repository_dispatch "anuncio-gerar") ou manualmente.
+# Secrets: GEMINI_API_KEY (projeto separado da Descrevi), BREVO_API_KEY, INTAKE_URL, INTAKE_EXPORT_TOKEN
+# Variáveis: DRY_RUN (padrão "true"), DESCREVI_PROVIDER, DESCREVI_MODELS
+# Só os dados do produto vão para a IA; e-mail/nome do comprador e o link de referência não.
+# O link nunca é baixado.
+name: anuncio
+on:
+  repository_dispatch:
+    types: [anuncio-gerar]
+  workflow_dispatch:
+    inputs:
+      pedido_id: { description: "id interno do pedido", required: true, type: string }
+      email:     { description: "e-mail do comprador (só para conferência)", required: false, type: string }
+concurrency:
+  group: anuncio-gerar
+  cancel-in-progress: false
+permissions: { contents: read }
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: America/Sao_Paulo
+      DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
+      DESCREVI_PROVIDER: ${{ vars.DESCREVI_PROVIDER || 'gemini' }}
+      DESCREVI_MODELS: ${{ vars.DESCREVI_MODELS }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+      SENDER_EMAIL: ${{ vars.SENDER_EMAIL }}
+      REPLY_TO: ${{ vars.REPLY_TO }}
+      SUPORTE_EMAIL: ${{ vars.SUPORTE_EMAIL }}
+      ENDERECO_REMETENTE: ${{ vars.ENDERECO_REMETENTE }}
+      INTAKE_URL: ${{ secrets.INTAKE_URL }}
+      INTAKE_EXPORT_TOKEN: ${{ secrets.INTAKE_EXPORT_TOKEN }}
+      PEDIDO_ID: ${{ github.event.client_payload.pedido_id || inputs.pedido_id }}
+      EMAIL: ${{ github.event.client_payload.email || inputs.email }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13" }
+      - name: Dependências
+        run: pip install -r gerador/requirements.txt
+      - name: Gerar e enviar (DRY_RUN por padrão)
+        run: |
+          set -e
+          echo "::add-mask::$EMAIL"
+          if [ -z "$PEDIDO_ID" ]; then echo "faltou pedido_id" >&2; exit 1; fi
+          python3 -m gerador.gerar --pedido-id "$PEDIDO_ID" --enviar --status-remoto --saida gerador/saida
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: anuncio-${{ env.PEDIDO_ID || github.run_id }}
+          retention-days: 7
+          path: |
+            gerador/saida/*.pdf
+            gerador/saida/*.xlsx
+            gerador/saida/*.csv
+          if-no-files-found: warn

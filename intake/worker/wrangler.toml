@@ -1,0 +1,36 @@
+# Cloudflare Worker da Descrevi (plano gratuito). Ainda NÃO publicado.
+# Placeholder: https://descrevi-intake.heliovcastro.workers.dev
+# Site: https://heliovc.github.io/descrevi/
+name = "descrevi-intake"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "descrevi"
+database_id = "00000000-0000-0000-0000-000000000000"
+
+# Lembrete de formulário pendente e limpeza de 30 dias. 12:00 UTC = 09:00 em America/Sao_Paulo.
+[triggers]
+crons = ["0 12 * * *"]
+
+[vars]
+SITE_URL = "https://heliovc.github.io/descrevi"
+INTAKE_URL = "https://descrevi-intake.heliovcastro.workers.dev"
+ORIGENS_PERMITIDAS = "https://heliovc.github.io"
+SENDER_EMAIL = "heliovcastro@gmail.com"
+REPLY_TO = "heliovcastro@gmail.com"
+SUPORTE_EMAIL = "heliovcastro@gmail.com"
+ENDERECO_REMETENTE = "FIT TECNOLOGIA E SERVICOS ADMINISTRATIVOS LTDA · CNPJ 49.408.467/0001-64 · Rua Visconde de Pirajá, 414, sala 718, Ipanema, Rio de Janeiro/RJ, CEP 22410-002"
+SENDER_NAME = "Descrevi"
+DRY_RUN = "true"
+# Placeholders locais até o Chefe informar os ids reais na Kiwify (não são segredos).
+KIWIFY_PRODUTO_3 = "bbbbbbbb-3333-4ccc-8ddd-ffffffffffff"
+KIWIFY_PRODUTO_10 = "bbbbbbbb-aaaa-4ccc-8ddd-ffffffffffff"
+GITHUB_REPO = "heliovc/descrevi"
+TITULO_TETO = "80"
+TURNSTILE_SITE_KEY = "1x00000000000000000000AA"
+
+# Segredos (wrangler secret put …; localmente em .dev.vars, que não entra no git):
+# KIWIFY_TOKEN, EXPORT_TOKEN, LINK_SECRET, BREVO_API_KEY, TURNSTILE_SECRET, GEMINI_API_KEY, GITHUB_DISPATCH_TOKEN

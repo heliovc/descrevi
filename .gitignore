@@ -1,0 +1,15 @@
+node_modules/
+.wrangler/
+.dev.vars
+__pycache__/
+*.pyc
+.env
+.venv/
+e2e/.estado-worker/
+e2e/saida/
+e2e/*.log
+gerador/saida/
+data/outbox/
+privado/
+*.log
+.DS_Store
