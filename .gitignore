@@ -13,3 +13,6 @@ data/outbox/
 privado/
 *.log
 .DS_Store
+
+# o diretório ou o symlink local do wrangler
+node_modules
