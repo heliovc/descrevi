@@ -16,8 +16,11 @@
     "10": 127
   },
   "kiwify": {
-    "produto_3": "bbbbbbbb-3333-4ccc-8ddd-ffffffffffff",
-    "produto_10": "bbbbbbbb-aaaa-4ccc-8ddd-ffffffffffff",
+    "produto": "bbbbbbbb-0000-4ccc-8ddd-ffffffffffff",
+    "oferta_3": "cccccccc-3333-4ccc-8ddd-ffffffffffff",
+    "oferta_10": "cccccccc-aaaa-4ccc-8ddd-ffffffffffff",
+    "valor_centavos_3": 4700,
+    "valor_centavos_10": 12700,
     "checkout_3": "",
     "checkout_10": ""
   },

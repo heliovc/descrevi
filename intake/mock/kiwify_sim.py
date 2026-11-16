@@ -11,9 +11,10 @@ STATUS = {
     "order_approved": "paid", "order_rejected": "refused",
     "order_refunded": "refunded", "chargeback": "chargedback",
 }
-PRODUTOS = {
-    "3": {"product_id": "bbbbbbbb-3333-4ccc-8ddd-ffffffffffff", "product_name": "Anúncio Pronto — 3 anúncios"},
-    "10": {"product_id": "bbbbbbbb-aaaa-4ccc-8ddd-ffffffffffff", "product_name": "Anúncio Pronto — 10 anúncios"},
+PRODUTO = {"product_id": "bbbbbbbb-0000-4ccc-8ddd-ffffffffffff", "product_name": "Anúncio Pronto"}
+OFERTAS = {
+    "3": {"product_offer_id": "cccccccc-3333-4ccc-8ddd-ffffffffffff", "product_offer_name": "3 anúncios"},
+    "10": {"product_offer_id": "cccccccc-aaaa-4ccc-8ddd-ffffffffffff", "product_offer_name": "10 anúncios"},
 }
 
 
@@ -22,7 +23,7 @@ def payload(evento, email, nome="Cliente Teste", order_id=None, pacote="3", agor
     brt = (agora - timedelta(hours=3)).strftime("%Y-%m-%d %H:%M")
     order_id = order_id or str(uuid.uuid4())
     order_status = STATUS.get(evento, "paid")
-    prod = PRODUTOS.get(str(pacote), PRODUTOS["3"])
+    oferta = OFERTAS.get(str(pacote), OFERTAS["3"])
     return {
         "order_id": order_id, "order_ref": order_id[:8].upper(), "order_status": order_status,
         "product_type": "digital", "payment_method": "credit_card", "store_id": "LOJA-TESTE",
@@ -30,7 +31,7 @@ def payload(evento, email, nome="Cliente Teste", order_id=None, pacote="3", agor
         "approved_date": brt if order_status == "paid" else None,
         "refunded_at": brt if order_status in ("refunded", "chargedback") else None,
         "webhook_event_type": evento,
-        "Product": dict(prod),
+        "Product": {**PRODUTO, **oferta},
         "Customer": {"full_name": nome, "first_name": nome.split()[0], "email": email},
         "Commissions": {"charge_amount": 12700 if str(pacote) == "10" else 4700, "currency": "BRL"},
     }

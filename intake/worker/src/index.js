@@ -66,11 +66,53 @@ async function enviar(env, dest, tipo, msg) {
 
 function linkFormulario(env, p) { return `${env.SITE_URL}/formulario.html?t=${p.token}`; }
 
-function pacoteDoProduto(env, prod) {
+function idsOferta(ev) {
+  const p = ev.Product || ev.product || {};
+  const o = ev.Offer || ev.offer || ev.Checkout || ev.checkout || {};
+  return [p.product_offer_id, p.offer_id, p.offerId, ev.offer_id, ev.product_offer_id, o.id,
+    ev.checkout_id, p.checkout_id, o.checkout_id].map((s) => String(s || "").trim()).filter(Boolean);
+}
+function valorCentavos(ev) {
+  const cands = [
+    ev.Commissions?.charge_amount, ev.commissions?.charge_amount,
+    ev.PaymentDetails?.charge_amount, ev.payment_details?.charge_amount,
+    ev.Commissions?.product_base_price, ev.product_base_price,
+  ];
+  for (const v of cands) {
+    const n = Number(v);
+    if (Number.isFinite(n) && n > 0) return Math.round(n);
+  }
+  return null;
+}
+function produtosConhecidos(env) {
+  return [env.KIWIFY_PRODUTO, env.KIWIFY_PRODUTO_3, env.KIWIFY_PRODUTO_10].map((s) => (s || "").trim()).filter(Boolean);
+}
+// Um produto na Kiwify com duas ofertas (3 anúncios / R$47 e 10 / R$127).
+// Identifica o pacote pela oferta/checkout ou pelo valor em centavos (4700 vs 12700).
+// Os ids KIWIFY_PRODUTO_3 / KIWIFY_PRODUTO_10 continuam aceitos se ainda apontarem a produtos separados.
+function pacoteDoEvento(env, ev) {
+  const ofertas = idsOferta(ev);
+  const of3 = (env.KIWIFY_OFERTA_3 || "").trim();
+  const of10 = (env.KIWIFY_OFERTA_10 || "").trim();
+  const ck3 = (env.KIWIFY_CHECKOUT_3 || "").trim();
+  const ck10 = (env.KIWIFY_CHECKOUT_10 || "").trim();
+  if (of10 && ofertas.includes(of10)) return { pacote: "10", quantidade: 10 };
+  if (of3 && ofertas.includes(of3)) return { pacote: "3", quantidade: 3 };
+  if (ck10 && ofertas.includes(ck10)) return { pacote: "10", quantidade: 10 };
+  if (ck3 && ofertas.includes(ck3)) return { pacote: "3", quantidade: 3 };
+  const valor = valorCentavos(ev);
+  const v3 = Number(env.KIWIFY_VALOR_3 || 4700);
+  const v10 = Number(env.KIWIFY_VALOR_10 || 12700);
+  if (valor === v10) return { pacote: "10", quantidade: 10 };
+  if (valor === v3) return { pacote: "3", quantidade: 3 };
+  const nome = `${ev.Product?.product_offer_name || ev.Product?.offer_name || ev.offer_name || ""}`.toLowerCase();
+  if (/\b10\s*an[uú]ncios\b/.test(nome)) return { pacote: "10", quantidade: 10 };
+  if (/\b3\s*an[uú]ncios\b/.test(nome)) return { pacote: "3", quantidade: 3 };
+  const prod = String(ev.Product?.product_id || ev.product?.product_id || "").trim();
   const id3 = (env.KIWIFY_PRODUTO_3 || "").trim();
   const id10 = (env.KIWIFY_PRODUTO_10 || "").trim();
-  if (id3 && prod === id3) return { pacote: "3", quantidade: 3 };
-  if (id10 && prod === id10) return { pacote: "10", quantidade: 10 };
+  if (id10 && prod === id10 && id10 !== id3) return { pacote: "10", quantidade: 10 };
+  if (id3 && prod === id3 && id3 !== id10) return { pacote: "3", quantidade: 3 };
   return null;
 }
 
@@ -78,11 +120,11 @@ async function aplicarPedido(env, ev, tipo) {
   const email = normEmail(ev.Customer?.email ?? ev.customer?.email);
   const nome = (ev.Customer?.full_name || ev.Customer?.first_name || ev.customer?.name || "").trim().slice(0, 120);
   const orderId = ev.order_id || null;
-  const info = pacoteDoProduto(env, ev.Product?.product_id);
+  const info = pacoteDoEvento(env, ev);
   let p = orderId ? await env.DB.prepare("SELECT * FROM pedidos WHERE order_id=?").bind(orderId).first() : null;
   if (tipo === "order_approved") {
     if (ev.order_status && ev.order_status !== "paid") return `pedido ignorado (order_status=${ev.order_status})`;
-    if (!info) return "pedido ignorado (produto desconhecido)";
+    if (!info) return "pedido ignorado (pacote não identificado na oferta/valor)";
     if (p && p.status === "reembolsado") return "pedido ignorado (já reembolsado)";
     if (p) return `pedido sem mudança (${p.status})`;
     if (!EMAIL_RE.test(email)) return "ATENÇÃO: compra aprovada sem e-mail válido no payload";
@@ -291,7 +333,7 @@ async function kiwify(req, env, url) {
     const tipo = ev.webhook_event_type;
     if (!tipo) return await responder(json({ ok: true, ignorado: "sem webhook_event_type" }));
     const prod = ev.Product?.product_id;
-    const conhecidos = [env.KIWIFY_PRODUTO_3, env.KIWIFY_PRODUTO_10].map((s) => (s || "").trim()).filter(Boolean);
+    const conhecidos = produtosConhecidos(env);
     if (conhecidos.length && prod && !conhecidos.includes(prod)) return await responder(json({ ok: true, ignorado: "outro produto" }));
     const chave = `${ev.order_id || "sem-order"}|${tipo}`;
     const ins = await env.DB.prepare("INSERT OR IGNORE INTO eventos (chave,tipo,order_id,recebido_em) VALUES (?,?,?,?)")
