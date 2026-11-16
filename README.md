@@ -2,7 +2,7 @@
 
 Texto de anúncio para Mercado Livre e Shopee, a partir dos dados que o vendedor cola no formulário. Site: `https://heliovc.github.io/descrevi/`. Worker: `https://descrevi-intake.heliovcastro.workers.dev`.
 
-O envio real de e-mail fica desligado (`DRY_RUN=true`) até o dono autorizar. Produtos e webhook da Kiwify ainda são placeholders.
+Site e Worker em produção. `DRY_RUN=false` no Worker e na Action (envio real pela Brevo).
 
 ## O que já roda aqui
 

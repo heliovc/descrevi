@@ -24,7 +24,7 @@ REPLY_TO = "contato@valorasolucoes.com"
 SUPORTE_EMAIL = "contato@valorasolucoes.com"
 ENDERECO_REMETENTE = "FIT TECNOLOGIA E SERVICOS ADMINISTRATIVOS LTDA · CNPJ 49.408.467/0001-64 · Rua Visconde de Pirajá, 414, sala 718, Ipanema, Rio de Janeiro/RJ, CEP 22410-002"
 SENDER_NAME = "Descrevi"
-DRY_RUN = "true"
+DRY_RUN = "false"
 # Um produto com duas ofertas. Ids de oferta não aparecem no painel da Kiwify;
 # o Worker identifica o pacote pelo valor (4700/12700) ou pelo nome da oferta.
 KIWIFY_PRODUTO = "1e58c4e0-e1aa-11f1-9a10-b55ed40f87a6"
