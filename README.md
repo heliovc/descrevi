@@ -1,14 +1,14 @@
 # Descrevi · pacote Anúncio Pronto
 
-Texto de anúncio para Mercado Livre e Shopee, a partir dos dados que o vendedor cola no formulário. **Repositório local apenas** (sem remote, sem push, sem deploy, sem e-mail real). Site previsto: `https://heliovc.github.io/descrevi/`. Worker previsto: `https://descrevi-intake.heliovcastro.workers.dev`.
+Texto de anúncio para Mercado Livre e Shopee, a partir dos dados que o vendedor cola no formulário. Site: `https://heliovc.github.io/descrevi/`. Worker: `https://descrevi-intake.heliovcastro.workers.dev`.
 
-Nada é publicado sem a revisão do Chefe e a aprovação do dono.
+O envio real de e-mail fica desligado (`DRY_RUN=true`) até o dono autorizar. Produtos e webhook da Kiwify ainda são placeholders.
 
 ## O que já roda aqui
 
 - Worker local (`wrangler dev --local`, porta 8788): webhook Kiwify (HMAC-SHA1, idempotente), e-mail do formulário (Brevo em DRY_RUN), GET/POST do pedido, reembolso revoga o link, título grátis com teto (3/IP/dia e teto global), rotina de lembrete e **purge de 30 dias**.
 - Gerador Python: Gemini (se houver `GEMINI_API_KEY`) ou mock, checagens das regras das plataformas, retry, PDF + xlsx + CSV, e-mail DRY_RUN.
-- Site estático (landing, formulário, título grátis, rascunhos de privacidade e termos).
+- Site estático (landing, formulário, título grátis, termos e privacidade).
 - e2e em `e2e/run_e2e.py`.
 - Duas amostras em `amostra/`.
 
