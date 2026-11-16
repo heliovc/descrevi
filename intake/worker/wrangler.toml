@@ -25,10 +25,13 @@ SUPORTE_EMAIL = "contato@valorasolucoes.com"
 ENDERECO_REMETENTE = "FIT TECNOLOGIA E SERVICOS ADMINISTRATIVOS LTDA · CNPJ 49.408.467/0001-64 · Rua Visconde de Pirajá, 414, sala 718, Ipanema, Rio de Janeiro/RJ, CEP 22410-002"
 SENDER_NAME = "Descrevi"
 DRY_RUN = "true"
-# Um produto com duas ofertas. Placeholders até os ids reais da Kiwify (não são segredos).
-KIWIFY_PRODUTO = "bbbbbbbb-0000-4ccc-8ddd-ffffffffffff"
-KIWIFY_OFERTA_3 = "cccccccc-3333-4ccc-8ddd-ffffffffffff"
-KIWIFY_OFERTA_10 = "cccccccc-aaaa-4ccc-8ddd-ffffffffffff"
+# Um produto com duas ofertas. Ids de oferta não aparecem no painel da Kiwify;
+# o Worker identifica o pacote pelo valor (4700/12700) ou pelo nome da oferta.
+KIWIFY_PRODUTO = "1e58c4e0-e1aa-11f1-9a10-b55ed40f87a6"
+KIWIFY_OFERTA_3 = ""
+KIWIFY_OFERTA_10 = ""
+KIWIFY_CHECKOUT_3 = "v8kNLZF"
+KIWIFY_CHECKOUT_10 = "OkuKaeG"
 KIWIFY_VALOR_3 = "4700"
 KIWIFY_VALOR_10 = "12700"
 GITHUB_REPO = "heliovc/descrevi"

@@ -4,8 +4,9 @@ window.DESCREVI = {
   pacote: "Anúncio Pronto",
   siteUrl: "",
   intakeUrl: "https://descrevi-intake.heliovcastro.workers.dev",
-  checkout3: "",
-  checkout10: "",
+  checkout3: "https://pay.kiwify.com.br/v8kNLZF",
+  checkout10: "https://pay.kiwify.com.br/OkuKaeG",
   turnstileSiteKey: "1x00000000000000000000AA",
+  tituloGratisAtivo: false,
   suporte: "contato@valorasolucoes.com"
 };

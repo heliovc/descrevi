@@ -16,13 +16,13 @@
     "10": 127
   },
   "kiwify": {
-    "produto": "bbbbbbbb-0000-4ccc-8ddd-ffffffffffff",
-    "oferta_3": "cccccccc-3333-4ccc-8ddd-ffffffffffff",
-    "oferta_10": "cccccccc-aaaa-4ccc-8ddd-ffffffffffff",
+    "produto": "1e58c4e0-e1aa-11f1-9a10-b55ed40f87a6",
+    "oferta_3": "",
+    "oferta_10": "",
     "valor_centavos_3": 4700,
     "valor_centavos_10": 12700,
-    "checkout_3": "",
-    "checkout_10": ""
+    "checkout_3": "https://pay.kiwify.com.br/v8kNLZF",
+    "checkout_10": "https://pay.kiwify.com.br/OkuKaeG"
   },
   "remetente": {
     "nome": "Descrevi",
@@ -39,5 +39,6 @@
     "titulo_gratis_por_ip": 3,
     "titulo_gratis_teto_diario": 80
   },
-  "observacao_suporte": "E-mail de suporte público (aprovado pelo dono em 15/11/2026): contato@valorasolucoes.com. Única menção permitida a esse domínio; a marca e o site correspondentes não entram no material da Descrevi. O controlador dos dados continua sendo a FIT TECNOLOGIA E SERVICOS ADMINISTRATIVOS LTDA."
+  "observacao_suporte": "E-mail de suporte público (aprovado pelo dono em 15/11/2026): contato@valorasolucoes.com. Única menção permitida a esse domínio; a marca e o site correspondentes não entram no material da Descrevi. O controlador dos dados continua sendo a FIT TECNOLOGIA E SERVICOS ADMINISTRATIVOS LTDA.",
+  "titulo_gratis_ativo": false
 }

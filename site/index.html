@@ -15,7 +15,7 @@
       <nav>
         <a href="#como">Como funciona</a>
         <a href="#pacotes">Preço</a>
-        <a href="titulo.html">Título grátis</a>
+        <a class="link-titulo-gratis" href="titulo.html" hidden>Título grátis</a>
       </nav>
     </div>
   </header>
@@ -65,7 +65,7 @@
       </div>
     </section>
 
-    <section id="gratis">
+    <section id="gratis" hidden>
       <div class="wrap">
         <h2>Experimente: um título grátis</h2>
         <p>Gere 1 título para o Mercado Livre (até 60 caracteres) a partir dos dados que você colar. Sem cadastro. Até 3 gerações por dia. É só o título — o pacote entrega o anúncio completo.</p>
@@ -143,7 +143,7 @@
       <p><strong>Descrevi</strong> · pacote Anúncio Pronto</p>
       <p>FIT TECNOLOGIA E SERVICOS ADMINISTRATIVOS LTDA · CNPJ 49.408.467/0001-64<br>
       Rua Visconde de Pirajá, 414, sala 718, Ipanema, Rio de Janeiro/RJ, CEP 22410-002</p>
-      <p><a href="privacidade.html">Política de privacidade</a> · <a href="termos.html">Termos de uso</a> · <a href="titulo.html">Título grátis</a></p>
+      <p><a href="privacidade.html">Política de privacidade</a> · <a href="termos.html">Termos de uso</a><span class="link-titulo-gratis" hidden> · <a href="titulo.html">Título grátis</a></span></p>
       <p>A Descrevi não é afiliada ao Mercado Livre nem à Shopee.</p>
     </div>
   </footer>
@@ -161,6 +161,10 @@
       liga("btn-10", c.checkout10); liga("buy-10", c.checkout10);
       var n = document.getElementById("nota-checkout");
       if (n && c.checkout3 && c.checkout10) n.hidden = true;
+      var tituloAtivo = !!c.tituloGratisAtivo;
+      document.querySelectorAll(".link-titulo-gratis, #gratis").forEach(function (el) {
+        el.hidden = !tituloAtivo;
+      });
       if (c.suporte) {
         document.querySelectorAll("[data-suporte]").forEach(function (a) {
           a.href = "mailto:" + c.suporte;

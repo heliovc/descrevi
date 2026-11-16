@@ -6,6 +6,13 @@
   var saida = document.getElementById("saida");
   var btn = document.getElementById("enviar");
 
+  if (!cfg.tituloGratisAtivo) {
+    if (form) form.hidden = true;
+    var aviso = document.getElementById("titulo-indisponivel");
+    if (aviso) aviso.hidden = false;
+    return;
+  }
+
   // Atualiza o sitekey se o config trouxe outro
   var tw = document.querySelector(".cf-turnstile");
   if (tw && cfg.turnstileSiteKey) tw.setAttribute("data-sitekey", cfg.turnstileSiteKey);

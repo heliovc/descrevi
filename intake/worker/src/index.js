@@ -66,11 +66,26 @@ async function enviar(env, dest, tipo, msg) {
 
 function linkFormulario(env, p) { return `${env.SITE_URL}/formulario.html?t=${p.token}`; }
 
+function normalizarNome(s) {
+  return String(s || "").toLowerCase().normalize("NFD").replace(/\p{M}/gu, "").replace(/\s+/g, " ").trim();
+}
 function idsOferta(ev) {
   const p = ev.Product || ev.product || {};
   const o = ev.Offer || ev.offer || ev.Checkout || ev.checkout || {};
-  return [p.product_offer_id, p.offer_id, p.offerId, ev.offer_id, ev.product_offer_id, o.id,
-    ev.checkout_id, p.checkout_id, o.checkout_id].map((s) => String(s || "").trim()).filter(Boolean);
+  const bruto = [p.product_offer_id, p.offer_id, p.offerId, ev.offer_id, ev.product_offer_id, o.id,
+    ev.checkout_id, p.checkout_id, o.checkout_id, ev.checkout_link, p.checkout_link, o.checkout_link];
+  const ids = [];
+  for (const s of bruto) {
+    const v = String(s || "").trim();
+    if (!v) continue;
+    ids.push(v);
+    try {
+      const u = new URL(v);
+      const slug = u.pathname.split("/").filter(Boolean).pop();
+      if (slug) ids.push(slug);
+    } catch (_) {}
+  }
+  return [...new Set(ids)];
 }
 function valorCentavos(ev) {
   const cands = [
@@ -105,9 +120,9 @@ function pacoteDoEvento(env, ev) {
   const v10 = Number(env.KIWIFY_VALOR_10 || 12700);
   if (valor === v10) return { pacote: "10", quantidade: 10 };
   if (valor === v3) return { pacote: "3", quantidade: 3 };
-  const nome = `${ev.Product?.product_offer_name || ev.Product?.offer_name || ev.offer_name || ""}`.toLowerCase();
-  if (/\b10\s*an[uú]ncios\b/.test(nome)) return { pacote: "10", quantidade: 10 };
-  if (/\b3\s*an[uú]ncios\b/.test(nome)) return { pacote: "3", quantidade: 3 };
+  const nome = normalizarNome(ev.Product?.product_offer_name || ev.Product?.offer_name || ev.offer_name || ev.Product?.product_name || "");
+  if (/\b10\s*anuncios\b/.test(nome)) return { pacote: "10", quantidade: 10 };
+  if (/\b3\s*anuncios\b/.test(nome)) return { pacote: "3", quantidade: 3 };
   const prod = String(ev.Product?.product_id || ev.product?.product_id || "").trim();
   const id3 = (env.KIWIFY_PRODUTO_3 || "").trim();
   const id10 = (env.KIWIFY_PRODUTO_10 || "").trim();
@@ -297,8 +312,9 @@ function resumoSeguro(raw) {
     webhook_event_type: ev.webhook_event_type ?? null,
     order_id: ev.order_id ?? null,
     order_status: ev.order_status ?? null,
-    product_id: ev.Product?.product_id ?? null,
-    customer_email: mascararEmail(ev.Customer?.email),
+    product_id: ev.Product?.product_id ?? ev.product?.product_id ?? null,
+    offer_name: ev.Product?.product_offer_name ?? ev.Product?.offer_name ?? ev.offer_name ?? null,
+    charge_amount: ev.Commissions?.charge_amount ?? ev.commissions?.charge_amount ?? ev.PaymentDetails?.charge_amount ?? null,
   } : { raw_bytes: raw.length };
   return { ev, resumo: JSON.stringify(resumo) };
 }
@@ -323,11 +339,17 @@ async function kiwify(req, env, url) {
   };
   try {
     const sig = (url.searchParams.get("signature") || "").toLowerCase();
-    const tokens = [env.KIWIFY_TOKEN, env.KIWIFY_TOKEN_ANTIGO].filter(Boolean);
-    if (!tokens.length) return await responder(json({ erro: "KIWIFY_TOKEN não configurado" }, 500));
+    const tokens = [env.KIWIFY_TOKEN, env.KIWIFY_TOKEN_ANTIGO]
+      .map((s) => String(s || "").trim())
+      .filter((s) => s && s.toUpperCase() !== "PENDENTE");
+    if (!tokens.length) {
+      // Token ainda não foi colado: registra o recorte seguro (order/status/oferta/valor, sem PII)
+      // e devolve 503 para a Kiwify tentar de novo quando o secret existir.
+      return await responder(json({ erro: "KIWIFY_TOKEN pendente", registrado: true }, 503));
+    }
     let valido = false;
     for (const t of tokens) if (igualConstante(await hmacHex("SHA-1", t, raw), sig)) valido = true;
-    if (!valido) return await responder(json({ erro: "assinatura inválida" }, 401));
+    if (!valido) return await responder(json({ erro: "assinatura inválida", registrado: true }, 401));
     let ev;
     try { ev = JSON.parse(new TextDecoder().decode(raw)); } catch { return await responder(json({ erro: "JSON inválido" }, 400)); }
     const tipo = ev.webhook_event_type;
