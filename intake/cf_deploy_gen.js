@@ -4,7 +4,7 @@
 const fs=require("fs"),W="intake/worker/";
 const toml=fs.readFileSync(W+"wrangler.toml","utf8");
 const varsSec=toml.split(/^\[vars\]\s*$/m)[1];
-const vars={};for(const l of varsSec.split("\n")){const m=l.match(/^([A-Z_]+)\s*=\s*"([^"]*)"/);if(m)vars[m[1]]=m[2];}
+const vars={};for(const l of varsSec.split("\n")){const m=l.match(/^([A-Z0-9_]+)\s*=\s*"([^"]*)"/);if(m)vars[m[1]]=m[2];}
 const compat=toml.match(/compatibility_date\s*=\s*"([^"]+)"/)[1];
 const dbid=toml.match(/database_id\s*=\s*"([^"]+)"/)[1];
 if(/^0+$/.test(dbid.replace(/-/g,"")))throw new Error("troque o database_id placeholder em wrangler.toml depois de criar o D1 descrevi");
